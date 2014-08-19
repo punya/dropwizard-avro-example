@@ -1,0 +1,9 @@
+@namespace("translate.api")
+protocol Translate {
+  record Translations {
+    string pigLatin;
+    string reverse;
+  }
+
+  Translations translate(string source);
+}

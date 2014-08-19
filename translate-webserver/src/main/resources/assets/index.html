@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-app="translate" style="padding-top: 20px">
+    <div class="container">
+      <div class="jumbotron">
+        <h1>TranslateWeb</h1>
+        <p>A demonstration of the prowess of AngularJS, DropWizard and Avro</p>
+      </div>
+      <form ng-controller="TranslateController" role="form">
+        <div class="form-group">
+          <label for="source">Source</label>
+          <input class="form-control" name="source" ng-model="source">
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="output in outputs">{{output}}</li>
+        </ul>
+      </form>
+    </div>
+  </body>
+</html>

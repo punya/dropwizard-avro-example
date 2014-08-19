@@ -1,0 +1,44 @@
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  avroTools
+}
+
+task avroIdlToJson(type: JavaExec) {
+  outputs.file "$buildDir/avro/translate.avpr"
+  doFirst {
+    outputs.files.singleFile.parentFile.mkdirs()
+  }
+  main = 'org.apache.avro.tool.Main'
+  classpath = configurations.avroTools
+  args = ['idl', 'src/main/avro/translate.avdl', outputs.files.singleFile]
+}
+
+task avroGenerateSources(type: JavaExec, dependsOn: avroIdlToJson) {
+  def outputDir = "$buildDir/avro/gensrc"
+  outputs.dir outputDir
+  main = 'org.apache.avro.tool.Main'
+  classpath = configurations.avroTools
+  args = ['compile', 'protocol', avroIdlToJson.outputs.files.singleFile, outputDir]
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir "$buildDir/avro/gensrc"
+    }
+  }
+}
+
+dependencies {
+  avroTools 'org.apache.avro:avro-tools:1.7.7'
+  compile('org.apache.avro:avro-ipc:1.7.7') {
+    exclude group: 'org.mortbay.jetty'
+  }
+}
+
+compileJava.dependsOn avroGenerateSources

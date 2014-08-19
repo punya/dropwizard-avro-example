@@ -1,0 +1,23 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'translate.service.TranslateService'
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  avroTools
+}
+
+dependencies {
+  compile project(':translate-api')
+  compile 'io.dropwizard:dropwizard-core:0.7.1'
+
+  runtime 'ch.qos.logback:logback-classic:1.1.2'
+}
+
+run {
+  args 'server', 'translate-service.yml'
+}
