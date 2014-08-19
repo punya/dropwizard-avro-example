@@ -12,10 +12,6 @@ import translate.api.Translations;
 
 final class TranslateImpl implements Translate {
 
-  public Translations translate(String source) throws AvroRemoteException {
-    return this.translate((CharSequence) source);
-  }
-
   @Override
   public Translations translate(CharSequence source) throws AvroRemoteException {
     Iterable<String> words = Splitter.on(CharMatcher.BREAKING_WHITESPACE).split(source);

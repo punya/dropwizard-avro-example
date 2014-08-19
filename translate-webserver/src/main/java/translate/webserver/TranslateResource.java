@@ -26,6 +26,6 @@ public final class TranslateResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Object translate(String source) throws AvroRemoteException {
     Translations translations = this.translate.translate(source);
-    return ImmutableList.of(translations.getPigLatin(), translations.getReverse());
+    return ImmutableList.of(translations.getPigLatin().toString(), translations.getReverse().toString());
   }
 }

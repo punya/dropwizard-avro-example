@@ -3,7 +3,7 @@ package translate.webserver;
 import java.net.URI;
 
 import org.apache.avro.ipc.Ipc;
-import org.apache.avro.ipc.reflect.ReflectRequestor;
+import org.apache.avro.ipc.specific.SpecificRequestor;
 
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -25,7 +25,7 @@ public final class TranslateWebServer extends Application<Configuration> {
 
   @Override
   public void run(Configuration configuration, Environment environment) throws Exception {
-    Translate translate = ReflectRequestor.getClient(Translate.class, Ipc.createTransceiver(URI.create("http://localhost:4080")));
+    Translate translate = SpecificRequestor.getClient(Translate.class, Ipc.createTransceiver(URI.create("http://localhost:4080")));
     environment.jersey().setUrlPattern("/api/*");
     environment.jersey().register(new TranslateResource(translate));
   }
